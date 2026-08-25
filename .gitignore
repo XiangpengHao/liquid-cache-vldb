@@ -1,0 +1,8 @@
+.DS_Store
+
+# AI tooling internals — not part of the published deck
+.claude/
+.github/agents/
+.github/hooks/
+.github/skills/
+.impeccable/

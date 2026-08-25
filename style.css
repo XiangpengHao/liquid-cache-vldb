@@ -169,6 +169,7 @@ svg .t-mono-a{ font: 500 27px var(--mono); fill: var(--accent-deep); }
 svg .t-mono-f{ font: 400 27px var(--mono); fill: var(--faint); }
 svg .t-num   { font: 500 27px var(--mono); fill: var(--ink); }
 svg .t-callout { font: 600 30px var(--sans); fill: var(--accent-deep); }
+svg .t-fine  { font: 400 27px var(--sans); fill: var(--faint); }
 
 /* SVG build-animation helpers */
 svg .grow-y { transform-box: fill-box; transform-origin: center bottom; }
@@ -471,6 +472,7 @@ svg.motion-off .pulse { display: none; }
   font: 400 27px/1.45 var(--sans);
   color: var(--faint);
 }
+.methods .fine { color: var(--faint); }
 
 /* conclusion */
 .s-end .links {

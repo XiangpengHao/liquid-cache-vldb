@@ -142,18 +142,18 @@
   if (cold) {
     // seconds; measured on ClickBench (paper Fig: cold-latency)
     const data = [
-      { name: "S3, far", p: 22.5, b: 24.5, l: 23.8 },
-      { name: "S3", p: 15.2, b: 14.8, l: 15.0 },
-      { name: "MinIO", p: 9.8, b: 10.2, l: 9.2 },
-      { name: "SSD", p: 5.5, b: 6.4, l: 5.8 },
-      { name: "memory", p: 1.2, b: 3.7, l: 1.7 },
+      { name: "S3, far", p: 22.5, l: 23.8 },
+      { name: "S3", p: 15.2, l: 15.0 },
+      { name: "MinIO", p: 9.8, l: 9.2 },
+      { name: "SSD", p: 5.5, l: 5.8 },
+      { name: "memory", p: 1.2, l: 1.7 },
     ];
-    const BASE = 380, SCALE = 11.2; // y = BASE - s * SCALE  (25 s -> y=100)
-    const GX = 132, GW = 196, BW = 44, BG = 10;
-    const colors = { p: "#3d6b99", b: "#a8b0b9", l: "#c05621" };
+    const BASE = 356, SCALE = 10.56; // y = BASE - s * SCALE  (25 s -> y=92)
+    const GX = 144, GW = 196, BW = 58, BG = 12;
+    const colors = { p: "#3d6b99", l: "#c05621" };
     data.forEach((d, gi) => {
       const x0 = GX + gi * GW;
-      ["p", "b", "l"].forEach((k, bi) => {
+      ["p", "l"].forEach((k, bi) => {
         const h = d[k] * SCALE;
         const r = document.createElementNS(NS, "rect");
         r.setAttribute("x", x0 + bi * (BW + BG));
@@ -166,7 +166,7 @@
         cold.appendChild(r);
       });
       const t = document.createElementNS(NS, "text");
-      t.setAttribute("x", x0 + (BW * 3 + BG * 2) / 2);
+      t.setAttribute("x", x0 + (BW * 2 + BG) / 2);
       t.setAttribute("y", BASE + 36);
       t.setAttribute("text-anchor", "middle");
       t.setAttribute("class", "t-mono c-lab");

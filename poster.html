@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiquidCache — VLDB 2026 poster</title>
+<meta name="description" content="One-page poster for LiquidCache: Efficient Pushdown Caching for Cloud-Native Data Analytics — VLDB 2026, Boston.">
+<style>
+/* LiquidCache — VLDB 2026 one-page poster.
+   Same design system as the talk (style.css); sized for A3 portrait.
+   The layout lives on an 816×1154 design grid (A3 aspect) and is scaled
+   up 1.3757× in print so it fills 297×420 mm exactly; on screen the
+   sheet scales to fit the window. Type is scaled for reading distance:
+   thesis ≈ 47pt printed, questions ≈ 22pt, bullets ≈ 14pt, fine print ≥ 12pt. */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url('assets/fonts/SourceSerif4-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('assets/fonts/Inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('assets/fonts/IBMPlexMono-600.woff2') format('woff2');
+}
+
+:root {
+  --paper: #fbfaf7;
+  --card: #ffffff;
+  --ink: #1c2a38;
+  --ink-soft: #4a5b6c;
+  --faint: #61707f;
+  --line: #dcd7c9;          /* one step darker than the deck's hairline so it survives print */
+
+  --accent: #c05621;
+  --accent-deep: #9c4118;
+  --accent-tint: #faeee2;
+  --accent-line: #e8c9a8;
+
+  --blue: #3d6b99;
+  --blue-deep: #2d5177;
+
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #111417;
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+::selection { background: #f5d8bd; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+#stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 14px 20px;
+}
+#wrap { width: 816px; height: 1154px; }
+
+/* The sheet: A3 aspect on the 816px design grid */
+#sheet {
+  width: 816px;
+  height: 1154px;
+  background: var(--paper);
+  padding: 42px 46px 40px;
+  display: flex;
+  flex-direction: column;
+  transform-origin: top left;
+  box-shadow: 0 26px 90px rgba(0, 0, 0, .55);
+}
+
+.printhint {
+  margin: 18px auto 0;
+  font: 400 12px/1.5 var(--mono);
+  color: #7d8791;
+  text-align: center;
+}
+
+/* ---------- masthead + title ---------- */
+
+.venue {
+  font: 500 12.5px/1 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-align: right;
+}
+
+.titleblock { margin-top: 10px; }
+h1 {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+}
+.subtitle {
+  margin-top: 4px;
+  font: 400 16px/1.3 var(--serif);
+  color: var(--ink-soft);
+}
+.authors {
+  margin-top: 9px;
+  font: 400 12.5px/1.45 var(--sans);
+  color: var(--ink-soft);
+}
+.authors .au, .authors .me { white-space: nowrap; }
+.authors .me {
+  font-weight: 650;
+  color: var(--ink);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+}
+.authors .inst { color: var(--faint); }
+.authors sup { font-size: .66em; line-height: 0; }
+.affil {
+  margin-top: 4px;
+  font: 400 12px/1.4 var(--sans);
+  color: var(--faint);
+}
+
+/* ---------- sections ---------- */
+
+.kicker {
+  font: 600 12px/1 var(--mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.take {
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.take .hero {
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+}
+.take .hero .a { color: var(--accent-deep); }
+.take svg.diagram { margin-top: 10px; width: 100%; height: auto; display: block; }
+
+/* two-part argument */
+.parts {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.part { border-top: 1px solid var(--line); padding-top: 10px; }
+.part .q { display: flex; align-items: baseline; gap: 10px; min-height: 56px; }
+.part .num {
+  font: 600 18px/1 var(--mono);
+  color: var(--accent-deep);
+  flex: none;
+}
+.part h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.part ul { list-style: none; margin-top: 8px; }
+.part li {
+  font: 400 13.5px/1.45 var(--sans);
+  color: var(--ink-soft);
+  padding: 4px 0 4px 17px;
+  position: relative;
+}
+.part li::before {
+  content: "";
+  position: absolute;
+  left: 1px; top: 12px;
+  width: 6px; height: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.part li b { font-weight: 600; color: var(--ink); }
+
+/* results */
+.payoff { margin-top: 16px; }
+.stats {
+  margin-top: 9px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 13px 11px;
+}
+.stat .big {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent-deep);
+  letter-spacing: -0.01em;
+}
+.stat .what {
+  margin-top: 6px;
+  font: 600 12.5px/1.3 var(--sans);
+  color: var(--ink);
+}
+.stat .vs { margin-top: 3px; font: 400 12px/1.35 var(--sans); color: var(--faint); }
+.methods {
+  margin-top: 8px;
+  font: 400 12px/1.45 var(--sans);
+  color: var(--faint);
+}
+.upstream {
+  margin-top: 4px;
+  font: 400 12.5px/1.45 var(--sans);
+  color: var(--ink-soft);
+}
+.upstream b { font-weight: 600; color: var(--ink); }
+
+/* footer */
+.foot {
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.scanpanel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: 14px;
+  padding: 10px 16px 10px 10px;
+}
+.scanpanel .qrbox {
+  flex: none;
+  display: block;
+  width: 80px; height: 80px;
+  border: 1px solid var(--accent-line);
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+.scanpanel .qrbox svg { display: block; width: 100%; height: 100%; }
+.scan-lab {
+  font: 600 13px/1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+.scan-url {
+  margin-top: 7px;
+  font: 600 14px/1.2 var(--mono);
+  color: var(--ink);
+}
+.scan-repo {
+  margin-top: 5px;
+  font: 500 12px/1.35 var(--mono);
+  color: var(--ink-soft);
+}
+.scan-repo .at { color: var(--faint); }
+.thanks { margin-left: auto; flex: none; text-align: right; }
+.thanks .lab {
+  font: 500 11.5px/1 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.thanks .logos {
+  margin-top: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.thanks img { height: 16px; opacity: .85; display: block; }
+.thanks img.spiral { height: 13px; }
+
+/* ---------- SVG text styles (deck scale: viewBox 1112 wide) ---------- */
+
+svg .t-box   { font: 600 30px var(--sans); fill: var(--ink); }
+svg .t-mono  { font: 500 27px var(--mono); fill: var(--ink-soft); }
+svg .t-mono-a{ font: 500 27px var(--mono); fill: var(--accent-deep); }
+
+/* ---------- print ---------- */
+
+@media print {
+  body { background: #ffffff; }
+  #stage { padding: 0; display: block; }
+  #wrap {
+    width: 297mm !important;
+    height: 420mm !important;
+    overflow: hidden;
+  }
+  #sheet {
+    /* 297mm / 816px design width */
+    transform: scale(1.3757) !important;
+    transform-origin: top left;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .printhint { display: none; }
+  @page { size: A3 portrait; margin: 0; }
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="wrap">
+<div id="sheet">
+
+  <div class="venue">VLDB 2026 · Boston</div>
+
+  <div class="titleblock">
+    <h1>LiquidCache</h1>
+    <div class="subtitle">Efficient Pushdown Caching for Cloud-Native Data Analytics</div>
+    <div class="authors">
+      <span class="me">Xiangpeng Hao</span> &nbsp;·&nbsp;
+      <span class="au">Andrew Lamb <span class="inst">(InfluxData)</span></span> &nbsp;·&nbsp;
+      <span class="au">Yibo Wu</span> &nbsp;·&nbsp;
+      <span class="au">Andrea Arpaci-Dusseau<sup>*</sup></span> &nbsp;·&nbsp;
+      <span class="au">Remzi Arpaci-Dusseau<sup>*</sup></span>
+    </div>
+    <div class="affil">University of Wisconsin–Madison &nbsp;·&nbsp; * joint senior authors</div>
+  </div>
+
+  <section class="take">
+    <div class="kicker">Takeaway</div>
+    <div class="hero">Cache a <span class="a">better format</span><br>than the storage format.</div>
+    <svg class="diagram" viewBox="0 0 1112 216" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Files flow from the object store into LiquidCache, are transcoded once into the Liquid format, and only matching rows return to compute.">
+      <defs>
+        <marker id="paha" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+          <path d="M0,0.6 L9.5,5 L0,9.4 z" fill="#c05621"/>
+        </marker>
+        <marker id="pahb" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+          <path d="M0,0.6 L9.5,5 L0,9.4 z" fill="#3d6b99"/>
+        </marker>
+      </defs>
+
+      <!-- object store -->
+      <rect x="10" y="22" width="290" height="158" rx="14" fill="#ffffff" stroke="#c3d3e2" stroke-width="1.5"/>
+      <text x="155" y="54" text-anchor="middle" class="t-box">Object store</text>
+      <rect x="27" y="66" width="126" height="42" rx="9" fill="#e6eff6" stroke="#3f7ea6"/>
+      <text x="90" y="94" text-anchor="middle" class="t-mono" fill="#31658a">CSV</text>
+      <rect x="163" y="66" width="126" height="42" rx="9" fill="#e3f1ef" stroke="#2f8b84"/>
+      <text x="226" y="94" text-anchor="middle" class="t-mono" fill="#266f6a">JSON</text>
+      <rect x="27" y="118" width="126" height="42" rx="9" fill="#e9eff6" stroke="#3d6b99"/>
+      <text x="90" y="146" text-anchor="middle" class="t-mono" fill="#2d5177">Parquet</text>
+      <rect x="163" y="118" width="126" height="42" rx="9" fill="#e9ebf6" stroke="#5a68a8"/>
+      <text x="226" y="146" text-anchor="middle" class="t-mono" fill="#47548c">MCAP</text>
+
+      <!-- cache: the protagonist -->
+      <rect x="358" y="8" width="392" height="172" rx="16" fill="#faeee2" stroke="#c05621" stroke-width="2"/>
+      <text x="554" y="44" text-anchor="middle" class="t-box" fill="#9c4118">LiquidCache</text>
+      <rect x="380" y="58" width="170" height="44" rx="9" fill="#ffffff" stroke="#e8c9a8" stroke-width="1.5"/>
+      <text x="465" y="88" text-anchor="middle" class="t-mono" fill="#9c4118">Liquid</text>
+      <rect x="560" y="58" width="170" height="44" rx="9" fill="#ffffff" stroke="#e8c9a8" stroke-width="1.5"/>
+      <text x="645" y="88" text-anchor="middle" class="t-mono" fill="#9c4118">Liquid</text>
+      <rect x="380" y="112" width="170" height="44" rx="9" fill="#ffffff" stroke="#e8c9a8" stroke-width="1.5"/>
+      <text x="465" y="142" text-anchor="middle" class="t-mono" fill="#9c4118">Liquid</text>
+      <rect x="560" y="112" width="170" height="44" rx="9" fill="#ffffff" stroke="#e8c9a8" stroke-width="1.5"/>
+      <text x="645" y="142" text-anchor="middle" class="t-mono" fill="#9c4118">Liquid</text>
+
+      <!-- compute -->
+      <rect x="808" y="22" width="290" height="158" rx="14" fill="#ffffff" stroke="#dcd7c9"/>
+      <text x="953" y="54" text-anchor="middle" class="t-box">Compute</text>
+      <rect x="828" y="66" width="250" height="42" rx="9" fill="#fbfaf7" stroke="#d6d2c6"/>
+      <text x="953" y="94" text-anchor="middle" class="t-mono">DataFusion</text>
+      <rect x="828" y="118" width="250" height="42" rx="9" fill="#fbfaf7" stroke="#d6d2c6"/>
+      <text x="953" y="146" text-anchor="middle" class="t-mono">any engine</text>
+
+      <!-- arrows: dashed = miss path, solid = every query -->
+      <line x1="308" y1="101" x2="350" y2="101" stroke="#3d6b99" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#pahb)"/>
+      <line x1="758" y1="101" x2="800" y2="101" stroke="#c05621" stroke-width="3" marker-end="url(#paha)"/>
+      <text x="329" y="208" text-anchor="middle" class="t-mono">transcode once</text>
+      <text x="779" y="208" text-anchor="middle" class="t-mono-a">only matching rows return</text>
+    </svg>
+  </section>
+
+  <section class="parts">
+    <div class="part">
+      <div class="q">
+        <div class="num">1</div>
+        <h2>Why is a different format 10× cheaper?</h2>
+      </div>
+      <ul>
+        <li>Writers choose storage formats for <b>stability and compatibility</b>, not query speed.</li>
+        <li>Newer formats are faster to query: <b>10× less decoding CPU</b> than Parquet, with the same compression.</li>
+        <li>Switching the lake to a new format <b>takes years</b>: re-encode petabytes, or convince every writer.</li>
+        <li>Liquid lives <b>only inside the cache</b>: no old readers to support, so it can use the newest encodings.</li>
+      </ul>
+    </div>
+    <div class="part">
+      <div class="q">
+        <div class="num">2</div>
+        <h2>Why is it zero overhead?</h2>
+      </div>
+      <ul>
+        <li>Cloud analytics already runs a cache tier between the object store and compute. The server, its DRAM, and its network are <b>already paid for</b>.</li>
+        <li>Serving reads is network- and memory-bound, so the cache's CPUs are <b>mostly idle</b>. Transcoding runs on those idle cores.</li>
+        <li>Data is transcoded on the first miss, and only if a query touches it. Cold data is <b>never converted</b>.</li>
+        <li>Transcoding overlaps the object-store fetch, so cold runs match Parquet; warm runs are <b>2× faster</b>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="payoff">
+    <div class="kicker">Results</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="big">10×</div>
+        <div class="what">lower CPU per query</div>
+        <div class="vs">not end-to-end latency</div>
+      </div>
+      <div class="stat">
+        <div class="big">4×</div>
+        <div class="what">smaller than Arrow</div>
+        <div class="vs">in memory, query-ready</div>
+      </div>
+      <div class="stat">
+        <div class="big">100×</div>
+        <div class="what">less network traffic</div>
+        <div class="vs">filters run in the cache</div>
+      </div>
+      <div class="stat">
+        <div class="big">2×</div>
+        <div class="what">faster warm queries</div>
+        <div class="vs">cold runs match Parquet</div>
+      </div>
+    </div>
+    <div class="methods">ClickBench and TPC-H on Apache DataFusion, vs. non-pushdown caches · CloudLab 6525: 16 cores, 128 GB RAM, 10 Gbps.</div>
+    <div class="upstream">Techniques upstreamed to <b>Apache Arrow</b>, <b>Parquet</b>, and <b>DataFusion</b>.</div>
+  </section>
+
+  <footer class="foot">
+    <div class="scanpanel">
+      <a class="qrbox" href="https://liquid-cache-vldb.xiangpeng.systems/" aria-label="Scan or click to open the talk online">
+        <svg class="qr" viewBox="0 0 41 41" role="img" aria-label="QR code: https://liquid-cache-vldb.xiangpeng.systems/" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect width="41" height="41" fill="#ffffff"/><path d="M4 4h7v1h-7zM12 4h4v1h-4zM17 4h5v1h-5zM23 4h1v1h-1zM26 4h2v1h-2zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM15 5h1v1h-1zM17 5h1v1h-1zM19 5h2v1h-2zM22 5h3v1h-3zM27 5h2v1h-2zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h4v1h-4zM21 6h2v1h-2zM28 6h1v1h-1zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h6v1h-6zM21 7h2v1h-2zM26 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM15 8h1v1h-1zM17 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM13 9h2v1h-2zM16 9h1v1h-1zM22 9h6v1h-6zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h2v1h-2zM15 11h4v1h-4zM21 11h1v1h-1zM24 11h2v1h-2zM28 11h1v1h-1zM5 12h2v1h-2zM8 12h1v1h-1zM10 12h2v1h-2zM13 12h4v1h-4zM18 12h4v1h-4zM23 12h6v1h-6zM30 12h1v1h-1zM32 12h5v1h-5zM4 13h5v1h-5zM11 13h1v1h-1zM14 13h3v1h-3zM21 13h1v1h-1zM28 13h4v1h-4zM35 13h2v1h-2zM4 14h1v1h-1zM9 14h6v1h-6zM17 14h1v1h-1zM22 14h1v1h-1zM26 14h1v1h-1zM29 14h3v1h-3zM34 14h1v1h-1zM36 14h1v1h-1zM6 15h4v1h-4zM13 15h1v1h-1zM16 15h1v1h-1zM19 15h10v1h-10zM30 15h1v1h-1zM32 15h1v1h-1zM35 15h2v1h-2zM4 16h7v1h-7zM12 16h2v1h-2zM15 16h2v1h-2zM18 16h2v1h-2zM22 16h1v1h-1zM24 16h2v1h-2zM28 16h3v1h-3zM33 16h1v1h-1zM36 16h1v1h-1zM6 17h2v1h-2zM9 17h1v1h-1zM12 17h1v1h-1zM14 17h4v1h-4zM19 17h1v1h-1zM21 17h2v1h-2zM26 17h1v1h-1zM30 17h1v1h-1zM34 17h1v1h-1zM36 17h1v1h-1zM4 18h1v1h-1zM7 18h2v1h-2zM10 18h1v1h-1zM12 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h2v1h-2zM29 18h1v1h-1zM35 18h2v1h-2zM4 19h1v1h-1zM6 19h1v1h-1zM8 19h2v1h-2zM12 19h2v1h-2zM17 19h2v1h-2zM20 19h1v1h-1zM25 19h2v1h-2zM28 19h1v1h-1zM30 19h1v1h-1zM32 19h1v1h-1zM35 19h1v1h-1zM5 20h3v1h-3zM10 20h1v1h-1zM16 20h2v1h-2zM20 20h1v1h-1zM24 20h2v1h-2zM29 20h2v1h-2zM33 20h1v1h-1zM4 21h5v1h-5zM11 21h1v1h-1zM13 21h2v1h-2zM16 21h1v1h-1zM18 21h3v1h-3zM22 21h1v1h-1zM24 21h2v1h-2zM28 21h4v1h-4zM35 21h2v1h-2zM7 22h1v1h-1zM9 22h2v1h-2zM14 22h2v1h-2zM17 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h3v1h-3zM30 22h1v1h-1zM34 22h3v1h-3zM4 23h1v1h-1zM6 23h2v1h-2zM11 23h1v1h-1zM13 23h2v1h-2zM16 23h1v1h-1zM18 23h1v1h-1zM20 23h4v1h-4zM25 23h3v1h-3zM29 23h1v1h-1zM31 23h2v1h-2zM35 23h1v1h-1zM4 24h1v1h-1zM7 24h2v1h-2zM10 24h1v1h-1zM14 24h4v1h-4zM19 24h5v1h-5zM25 24h1v1h-1zM28 24h3v1h-3zM33 24h1v1h-1zM35 24h2v1h-2zM6 25h2v1h-2zM9 25h1v1h-1zM11 25h1v1h-1zM14 25h1v1h-1zM17 25h1v1h-1zM19 25h1v1h-1zM22 25h1v1h-1zM24 25h3v1h-3zM28 25h3v1h-3zM33 25h4v1h-4zM4 26h1v1h-1zM9 26h3v1h-3zM13 26h1v1h-1zM16 26h3v1h-3zM21 26h1v1h-1zM25 26h2v1h-2zM28 26h2v1h-2zM31 26h2v1h-2zM34 26h3v1h-3zM5 27h1v1h-1zM7 27h2v1h-2zM14 27h2v1h-2zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h2v1h-2zM31 27h1v1h-1zM35 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h4v1h-4zM14 28h3v1h-3zM19 28h1v1h-1zM22 28h4v1h-4zM27 28h6v1h-6zM35 28h1v1h-1zM12 29h1v1h-1zM15 29h3v1h-3zM20 29h1v1h-1zM24 29h2v1h-2zM28 29h1v1h-1zM32 29h2v1h-2zM35 29h2v1h-2zM4 30h7v1h-7zM12 30h3v1h-3zM16 30h1v1h-1zM18 30h2v1h-2zM21 30h2v1h-2zM27 30h2v1h-2zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h3v1h-3zM4 31h1v1h-1zM10 31h1v1h-1zM16 31h1v1h-1zM20 31h1v1h-1zM22 31h1v1h-1zM25 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM35 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h1v1h-1zM14 32h2v1h-2zM19 32h1v1h-1zM21 32h1v1h-1zM24 32h2v1h-2zM28 32h6v1h-6zM35 32h1v1h-1zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM13 33h3v1h-3zM17 33h3v1h-3zM24 33h2v1h-2zM32 33h5v1h-5zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h1v1h-1zM15 34h4v1h-4zM21 34h2v1h-2zM26 34h1v1h-1zM32 34h3v1h-3zM36 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM12 35h2v1h-2zM15 35h6v1h-6zM23 35h6v1h-6zM32 35h1v1h-1zM35 35h1v1h-1zM4 36h7v1h-7zM13 36h1v1h-1zM16 36h2v1h-2zM20 36h3v1h-3zM24 36h2v1h-2zM27 36h4v1h-4zM32 36h1v1h-1zM35 36h2v1h-2z" fill="#1c2a38"/></svg>
+      </a>
+      <div class="scan-txt">
+        <div class="scan-lab">Scan for the talk</div>
+        <div class="scan-url"><a href="https://liquid-cache-vldb.xiangpeng.systems/">liquid-cache-vldb.xiangpeng.systems</a></div>
+        <div class="scan-repo"><a href="https://github.com/XiangpengHao/liquid-cache"><span class="at">github.com/</span>XiangpengHao/liquid-cache</a></div>
+      </div>
+    </div>
+    <div class="thanks">
+      <div class="lab">Supported by</div>
+      <div class="logos">
+        <img src="assets/influxdata.png" alt="InfluxData">
+        <img src="assets/bauplan.png" alt="Bauplan">
+        <img class="spiral" src="assets/spiral.png" alt="Spiral">
+      </div>
+    </div>
+  </footer>
+
+</div>
+</div>
+<div class="printhint">A3 portrait · print with margins set to “None” and background graphics on</div>
+</div>
+
+<script>
+(function () {
+  var sheet = document.getElementById("sheet");
+  var wrap = document.getElementById("wrap");
+  function fit() {
+    var W = 816, H = 1154;
+    var s = Math.min((window.innerWidth - 28) / W, 1.25);
+    if (!isFinite(s) || s <= 0) return;
+    sheet.style.transform = "scale(" + s + ")";
+    wrap.style.width = W * s + "px";
+    wrap.style.height = H * s + "px";
+  }
+  window.addEventListener("resize", fit);
+  fit();
+})();
+</script>
+</body>
+</html>

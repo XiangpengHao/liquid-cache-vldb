@@ -12,6 +12,10 @@ python3 -m http.server 8000
 
 Navigate with arrow keys / space; `Home`/`End` jump to the first/last slide; `#N` in the URL deep-links to slide N. Print to PDF from the browser for a backup copy (each slide is one landscape page).
 
+## Poster
+
+`poster.html` is a one-page A3 poster of the talk (same visual system as the deck). Print it from the browser — A3 portrait, margins “None”, background graphics on — or open it online; the QR code links to this site.
+
 ## Deploy
 
 - **GitHub Pages**: push to `main`; `.github/workflows/deploy.yml` publishes the site (enable Pages → Source: GitHub Actions in repo settings).

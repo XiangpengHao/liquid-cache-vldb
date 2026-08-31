@@ -579,7 +579,7 @@
   <div class="kicker">Part 2 · Why it’s zero overhead <span class="dim">· 3 / 4</span></div>
   <h1>Only the data that queries touch is ever transcoded</h1>
   <div class="body">
-    <svg viewBox="0 0 1112 400" style="width:1112px">
+    <svg viewBox="0 0 1112 430" style="width:1112px">
       <!-- data lake grid -->
       <text x="20" y="36" class="t-mono-f" letter-spacing="2">DATA LAKE — PARQUET</text>
       <g id="lake" transform="translate(20,60)"></g>
@@ -595,7 +595,9 @@
       <g id="cachegrid" transform="translate(768,88)"></g>
       <text x="916" y="322" text-anchor="middle" class="t-mono-f">hot subset, transcoded</text>
 
-      <text x="20" y="390" class="t-lab">No eager ETL — the cold data is <tspan font-weight="600" fill="#1c2a38">never converted at all</tspan>.</text>
+      <text x="20" y="354" class="t-lab">No eager ETL — the cold data is <tspan font-weight="600" fill="#1c2a38">never converted at all</tspan>.</text>
+      <text x="20" y="388" class="t-fine">&gt;50% of smart-tiered Azure capacity sits ≥30 days untouched — Azure, 2026.</text>
+      <text x="20" y="418" class="t-fine">~80% of Redshift CTAS tables feed exactly one query — VLDB 2024.</text>
     </svg>
   </div>
   <div class="pageno">14 / 16</div>

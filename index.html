@@ -38,10 +38,11 @@
       <span class="me">Xiangpeng Hao</span> &nbsp;·&nbsp;
       <span class="au">Andrew Lamb <span class="inst">(InfluxData)</span></span> &nbsp;·&nbsp;
       <span class="au">Yibo Wu</span> &nbsp;·&nbsp;
-      <span class="au">Andrea Arpaci-Dusseau</span> &nbsp;·&nbsp;
-      <span class="au">Remzi Arpaci-Dusseau</span>
+      <span class="au">Andrea Arpaci-Dusseau<sup>*</sup></span> &nbsp;·&nbsp;
+      <span class="au">Remzi Arpaci-Dusseau<sup>*</sup></span>
     </div>
     <div class="affil">University of Wisconsin–Madison</div>
+    <div class="jsa-note">* joint senior authors</div>
   </div>
   <div class="foot">
     <span class="lab">Supported by</span>
@@ -156,11 +157,11 @@
     </svg>
     <div class="pair">
       <div class="item">
-        <h3>Decoupled</h3>
-        <p>The archive keeps its stable format; the cache serves what hardware wants.</p>
+        <h3>10× cheaper</h3>
+        <p>The archive keeps its stable format; the cache serves one that’s 10× cheaper to query.</p>
       </div>
       <div class="item">
-        <h3>Essentially free</h3>
+        <h3>Zero overhead</h3>
         <p>Transcoding uses idle cache CPUs and hides behind the <span style="white-space:nowrap">cache-miss I/O</span>.</p>
       </div>
     </div>
@@ -277,13 +278,13 @@
     <div class="part active">
       <div class="num">1</div>
       <div>
-        <h2>Why cache a different format?</h2>
+        <h2>Why is a different format 10×&nbsp;cheaper?</h2>
       </div>
     </div>
     <div class="part">
       <div class="num">2</div>
       <div>
-        <h2>Why is it essentially free?</h2>
+        <h2>Why is it zero overhead?</h2>
       </div>
     </div>
   </div>
@@ -292,7 +293,7 @@
 
 <!-- ================= 6 · P1.1 WRITERS PICK ================= -->
 <section class="slide">
-  <div class="kicker">Part 1 · Why a different format <span class="dim">· 1 / 4</span></div>
+  <div class="kicker">Part 1 · Where the 10× comes from <span class="dim">· 1 / 5</span></div>
   <h1>Writers pick formats for the archive</h1>
   <div class="body">
     <div class="cols">
@@ -335,7 +336,7 @@
 
 <!-- ================= 7 · P1.2 FORMATS NOT EQUAL ================= -->
 <section class="slide">
-  <div class="kicker">Part 1 · Why a different format <span class="dim">· 2 / 4</span></div>
+  <div class="kicker">Part 1 · Where the 10× comes from <span class="dim">· 2 / 5</span></div>
   <h1>File formats are not created equal: each new generation is faster to query</h1>
   <div class="body">
     <svg viewBox="0 0 1112 430" style="width:1112px">
@@ -378,7 +379,7 @@
 
 <!-- ================= 8 · P1.3 LOCKED IN ================= -->
 <section class="slide">
-  <div class="kicker">Part 1 · Why a different format <span class="dim">· 3 / 4</span></div>
+  <div class="kicker">Part 1 · Where the 10× comes from <span class="dim">· 3 / 5</span></div>
   <h1>Switching formats takes a decade</h1>
   <div class="body">
     <div class="cols">
@@ -411,7 +412,7 @@
 
 <!-- ================= 9 · P1.4 THE APPROACH ================= -->
 <section class="slide">
-  <div class="kicker">Part 1 · Why a different format <span class="dim">· 4 / 4</span></div>
+  <div class="kicker">Part 1 · Where the 10× comes from <span class="dim">· 4 / 5</span></div>
   <h1>Keep the archive as is —<br>cache the better format instead</h1>
   <div class="body">
     <svg viewBox="0 0 1112 420" style="width:1112px">
@@ -458,29 +459,57 @@
   <div class="pageno">9 / 16</div>
 </section>
 
-<!-- ================= 10 · ROADMAP (PART 2) ================= -->
+<!-- ================= 10 · P1.5 PAYOFF ================= -->
+<section class="slide">
+  <div class="kicker">Part 1 · Where the 10× comes from <span class="dim">· 5 / 5</span></div>
+  <h1>The whole system gets cheaper</h1>
+  <div class="body">
+    <div class="stats">
+      <div class="stat">
+        <div class="big">10×</div>
+        <div class="what">lower cache CPU per query</div>
+        <div class="vs">not end-to-end latency</div>
+      </div>
+      <div class="stat">
+        <div class="big">4×</div>
+        <div class="what">smaller than Arrow in memory</div>
+        <div class="vs">vs. Arrow, still query-ready</div>
+      </div>
+      <div class="stat">
+        <div class="big">100×</div>
+        <div class="what">lower network traffic</div>
+        <div class="vs">filters run in the cache</div>
+      </div>
+    </div>
+    <div class="methods">ClickBench and TPC-H on Apache DataFusion, against non-pushdown caches.<br>
+      <span class="fine">CloudLab 6525: 16 cores / 32 threads, 128 GB RAM, 10 Gbps network. Five runs per query, last three averaged.</span></div>
+  </div>
+  <div class="pageno">10 / 16</div>
+</section>
+
+<!-- ================= 11 · ROADMAP (PART 2) ================= -->
 <section class="slide s-map">
   <div class="anchor">Cache a <b>better format</b> than the storage format —</div>
   <div class="parts">
     <div class="part done">
       <div class="num">1</div>
       <div>
-        <h2>Why cache a different format?</h2>
+        <h2>Why is a different format 10×&nbsp;cheaper?</h2>
       </div>
     </div>
     <div class="part active">
       <div class="num">2</div>
       <div>
-        <h2>Why is it essentially free?</h2>
+        <h2>Why is it zero overhead?</h2>
       </div>
     </div>
   </div>
-  <div class="pageno">10 / 16</div>
+  <div class="pageno">11 / 16</div>
 </section>
 
-<!-- ================= 11 · P2.1 CACHE IS MANDATORY ================= -->
+<!-- ================= 12 · P2.1 CACHE IS MANDATORY ================= -->
 <section class="slide">
-  <div class="kicker">Part 2 · Why it’s essentially free <span class="dim">· 1 / 5</span></div>
+  <div class="kicker">Part 2 · Why it’s zero overhead <span class="dim">· 1 / 4</span></div>
   <h1>Disaggregation already made the cache mandatory</h1>
   <div class="body">
     <svg viewBox="0 0 1112 400" style="width:1112px">
@@ -502,12 +531,12 @@
       <text x="556" y="336" text-anchor="middle" font-size="34" font-weight="600" fill="#1c2a38" font-family="Inter, -apple-system, sans-serif">whatever format the cache happens to store.</text></g>
     </svg>
   </div>
-  <div class="pageno">11 / 16</div>
+  <div class="pageno">12 / 16</div>
 </section>
 
-<!-- ================= 12 · P2.2 IDLE CPU ================= -->
+<!-- ================= 13 · P2.2 IDLE CPU ================= -->
 <section class="slide">
-  <div class="kicker">Part 2 · Why it’s essentially free <span class="dim">· 2 / 5</span></div>
+  <div class="kicker">Part 2 · Why it’s zero overhead <span class="dim">· 2 / 4</span></div>
   <h1>Cache servers bundle idle CPUs</h1>
   <div class="body">
     <svg viewBox="0 0 1112 440" style="width:1112px">
@@ -542,12 +571,12 @@
       <text x="20" y="428" class="t-fine">Measured on a conventional byte cache.</text>
     </svg>
   </div>
-  <div class="pageno">12 / 16</div>
+  <div class="pageno">13 / 16</div>
 </section>
 
-<!-- ================= 13 · P2.3 LAZY ================= -->
+<!-- ================= 14 · P2.3 LAZY ================= -->
 <section class="slide">
-  <div class="kicker">Part 2 · Why it’s essentially free <span class="dim">· 3 / 5</span></div>
+  <div class="kicker">Part 2 · Why it’s zero overhead <span class="dim">· 3 / 4</span></div>
   <h1>Only the data that queries touch is ever transcoded</h1>
   <div class="body">
     <svg viewBox="0 0 1112 400" style="width:1112px">
@@ -569,12 +598,12 @@
       <text x="20" y="390" class="t-lab">No eager ETL — the cold data is <tspan font-weight="600" fill="#1c2a38">never converted at all</tspan>.</text>
     </svg>
   </div>
-  <div class="pageno">13 / 16</div>
+  <div class="pageno">14 / 16</div>
 </section>
 
-<!-- ================= 14 · P2.4 HIDDEN BY IO ================= -->
+<!-- ================= 15 · P2.4 HIDDEN BY IO ================= -->
 <section class="slide">
-  <div class="kicker">Part 2 · Why it’s essentially free <span class="dim">· 4 / 5</span></div>
+  <div class="kicker">Part 2 · Why it’s zero overhead <span class="dim">· 4 / 4</span></div>
   <h1>Transcoding hides behind the miss I/O</h1>
   <div class="body">
     <svg viewBox="0 0 1112 474" style="width:1112px">
@@ -609,34 +638,6 @@
       <text x="110" y="464" class="t-fine">ClickBench on CloudLab — 16 cores, 128 GB RAM, 10 Gbps network.</text>
     </svg>
   </div>
-  <div class="pageno">14 / 16</div>
-</section>
-
-<!-- ================= 15 · P2.5 PAYOFF ================= -->
-<section class="slide">
-  <div class="kicker">Part 2 · Why it’s essentially free <span class="dim">· 5 / 5</span></div>
-  <h1>Free to run — and it pays</h1>
-  <div class="body">
-    <div class="stats">
-      <div class="stat">
-        <div class="big">10×</div>
-        <div class="what">lower cache CPU per query</div>
-        <div class="vs">not end-to-end latency</div>
-      </div>
-      <div class="stat">
-        <div class="big">4×</div>
-        <div class="what">smaller than Arrow in memory</div>
-        <div class="vs">vs. Arrow, still query-ready</div>
-      </div>
-      <div class="stat">
-        <div class="big">100×</div>
-        <div class="what">lower network traffic</div>
-        <div class="vs">filters run in the cache</div>
-      </div>
-    </div>
-    <div class="methods">ClickBench and TPC-H on Apache DataFusion, against non-pushdown caches.<br>
-      <span class="fine">CloudLab 6525: 16 cores / 32 threads, 128 GB RAM, 10 Gbps network. Five runs per query, last three averaged.</span></div>
-  </div>
   <div class="pageno">15 / 16</div>
 </section>
 
@@ -647,12 +648,12 @@
     <div class="hero">Cache a <span class="a">better format</span><br>than the storage format.</div>
     <div class="pair">
       <div class="item">
-        <h3>Decoupled</h3>
-        <p>The archive stays Parquet forever; the cache format evolves with the hardware.</p>
+        <h3>10× cheaper</h3>
+        <p>The archive stays Parquet forever; the cached format cuts CPU by 10× and network by 100×.</p>
       </div>
       <div class="item">
-        <h3>Essentially free</h3>
-        <p>Idle CPUs, only touched data, hidden behind miss I/O — 10× lower CPU, 100× lower network.</p>
+        <h3>Zero overhead</h3>
+        <p>Idle CPUs, only the data queries touch, hidden behind the miss I/O.</p>
       </div>
     </div>
     <div class="links">

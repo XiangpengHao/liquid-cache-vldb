@@ -98,7 +98,7 @@
     touchX = null;
   }, { passive: true });
 
-  /* ---------- slide 13: lake / cache grids ---------- */
+  /* ---------- slide 14: lake / cache grids ---------- */
   const NS = "http://www.w3.org/2000/svg";
   function cell(x, y, w, h, fill, stroke, cls) {
     const r = document.createElementNS(NS, "rect");
@@ -137,7 +137,7 @@
     }
   }
 
-  /* ---------- slide 14: cold-run bars ---------- */
+  /* ---------- slide 15: cold-run bars ---------- */
   const cold = document.getElementById("coldbars");
   if (cold) {
     // seconds; measured on ClickBench (paper Fig: cold-latency)
@@ -249,7 +249,7 @@
 
   /* ---------- loops: fetch traffic flows along dashed network edges ---------- */
   if (CAN_ANIMATE) {
-    [2, 3, 8, 10].forEach((idx) => {
+    [2, 3, 8, 11].forEach((idx) => {
       const line = slides[idx] && slides[idx].querySelector("svg line[stroke-dasharray]");
       if (line) {
         addLoop(idx, line.animate(
@@ -336,23 +336,28 @@
       fx(sl.querySelectorAll(".sfmt"), POP_F, POP_T, { t: 360, st: 90, d: 380 });
       fx(sl.querySelectorAll(".fmt"), POP_F, POP_T, { t: 800, d: 520 });
     },
-    9(sl) { // roadmap 2
+    9(sl) { // payoff closes part 1
+      head(sl);
+      fx(sl.querySelectorAll(".stat"), RISE_F, RISE_T, { t: 140, st: 140, d: 540 });
+      fx(sl.querySelector(".methods"), FADE_F, FADE_T, { t: 660, d: 420 });
+    },
+    10(sl) { // roadmap 2
       fx(sl.querySelector(".anchor"), FADE_F, FADE_T, { d: 420 });
       fx(sl.querySelectorAll(".part"), RISE_F, RISE_T, { t: 120, st: 160, d: 520 });
     },
-    10(sl) { // mandatory: topology first, claim lands after
+    11(sl) { // mandatory: topology first, claim lands after
       head(sl);
       fx(sl.querySelector("svg"), FADE_F, FADE_T, { t: 100, d: 480 });
       fx(sl.querySelector(".claim"), RISE_F, RISE_T, { t: 560, d: 620 });
     },
-    11(sl) { // idle CPUs: watch the bars fill busy, busy, . . . idle
+    12(sl) { // idle CPUs: watch the bars fill busy, busy, . . . idle
       head(sl);
       fx(sl.querySelector("svg"), FADE_F, FADE_T, { t: 80, d: 420 });
       fx(sl.querySelectorAll(".u-fill"), { transform: "scaleX(0)" }, { transform: "scaleX(1)" }, { t: 260, st: 200, d: 680 });
       fx(sl.querySelectorAll(".u-idle"), FADE_F, FADE_T, { t: 1080, d: 460 });
       fx(sl.querySelector(".body > svg > text.t-lab, svg > text.t-lab"), FADE_F, FADE_T, { t: 1300, d: 420 });
     },
-    12(sl) { // lazy: queries touch cells, touched cells reach the cache
+    13(sl) { // lazy: queries touch cells, touched cells reach the cache
       head(sl);
       fx(sl.querySelector("svg"), FADE_F, FADE_T, { t: 60, d: 380 });
       fx(sl.querySelectorAll("#lake rect"), FADE_F, FADE_T, { t: 160, st: 4, d: 260, e: "ease-out" });
@@ -364,17 +369,12 @@
       });
       fx(sl.querySelectorAll(".cache-chip"), POP_F, POP_T, { t: 880, st: 140, d: 400 });
     },
-    13(sl) { // evidence chart: bars grow in reading order
+    14(sl) { // evidence chart: bars grow in reading order
       head(sl);
       fx(sl.querySelector("svg"), FADE_F, FADE_T, { t: 60, d: 420 });
       fx(sl.querySelectorAll(".c-bar"), { transform: "scaleY(0)" }, { transform: "scaleY(1)" }, { t: 240, st: 55, d: 520 });
       fx(sl.querySelectorAll(".c-lab"), FADE_F, FADE_T, { t: 320, st: 165, d: 380 });
       fx(sl.querySelector(".tline"), FADE_F, FADE_T, { t: 1280, d: 420 });
-    },
-    14(sl) { // payoff
-      head(sl);
-      fx(sl.querySelectorAll(".stat"), RISE_F, RISE_T, { t: 140, st: 140, d: 540 });
-      fx(sl.querySelector(".methods"), FADE_F, FADE_T, { t: 660, d: 420 });
     },
     15(sl) { // conclusion echoes the takeaway
       fx(sl.querySelector(".hero"), RISE_F, RISE_T, { d: 560 });

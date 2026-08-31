@@ -232,9 +232,18 @@ svg.motion-off .pulse { display: none; }
   padding-bottom: 1px;
 }
 
+.s-title .authors sup {
+  font-size: 0.66em;
+  line-height: 0;
+}
 .s-title .affil {
   margin-top: 6px;
   font: 400 27px/1.4 var(--sans);
+  color: var(--faint);
+}
+.s-title .jsa-note {
+  margin-top: 16px;
+  font: 400 20px/1.3 var(--sans);
   color: var(--faint);
 }
 .s-title .foot {

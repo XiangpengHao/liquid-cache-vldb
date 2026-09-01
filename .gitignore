@@ -6,3 +6,5 @@
 .github/hooks/
 .github/skills/
 .impeccable/
+tmp
+output
